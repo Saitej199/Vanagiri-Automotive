@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanagiri Automotive</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f7f7f7;
+        scroll-behavior: smooth;
+      }
+
+      /* Background Video Section (Only for the Intro) */
+      .background-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+        opacity: 70;
+        transition: opacity 3s ease-in-out;
+      }
+      .background-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Full Page Section */
+      .full-page {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.589);
+        position: relative;
+      }
+
+      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+      header h1 {
+        font-size: 2rem;
+        color: #fff;
+        font-family: "Magneto", sans-serif;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 2rem;
+        font-family: "Creattion Demo";
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: #f05454;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url("S:\\VA\\pics\\realistic\\shortlist\\new\\white.43.jpg"); /* Add your image path here */
+        background-size: cover; /* Ensures the background image covers the entire section */
+        background-position: center; /* Centers the background image */
+        color: #fff;
+        padding: 50px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-size: 5rem;
+        font-family: "Creattion Demo", sans-serif;
+        margin-bottom: 10px;
+        color: #d94343;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        font-family: "Raleway", sans-serif;
+        margin-bottom: 30px;
+      }
+      .hero a {
+        font-size: 1rem;
+        font-family: "Raleway", sans-serif;
+        padding: 10px 30px;
+        background: #1d1d1d85;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+      .hero a:hover {
+        background: #d94343;
+      }
+
+      /* Vision Section Wrapper */
+      .vision {
+        display: flex;
+        flex-wrap: wrap; /* Ensures responsiveness */
+        justify-content: space-between;
+        align-items: center;
+        background-image: url("S:\\VA\\pics\\realistic\\shortlist\\side.36.jpg"); /* Background image */
+        background-size: cover;
+        background-position: center;
+        padding: 100px 20px;
+        color: #fff;
+        position: relative;
+        text-align: left; /* Aligns text to the left for a professional layout */
+        height: auto; /* Dynamic height */
+      }
+
+      .vision::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        z-index: 0;
+      }
+
+      /* Vision Content */
+      .vision-content {
+        z-index: 1;
+        flex: 1 1 50%; /* Allows dynamic resizing */
+        padding: 20px;
+        max-width: 600px;
+      }
+
+      .vision-content h3 {
+        font-size: 7rem;
+        font-family: "Creattion Demo", sans-serif;
+        color: #ffffff;
+        margin-bottom: 20px;
+      }
+
+      .vision-content p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #dddddd;
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .vision-content .author {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #f05454;
+        text-align: right;
+      }
+
+      /* Vision Image */
+      .vision-image {
+        flex: 1 1 40%; /* Dynamic resizing for image */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+      }
+
+      .vision-image img {
+        width: 80%; /* More prominent image size */
+        max-width: 600px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); /* Adds depth */
+        transition: transform 0.3s ease;
+      }
+
+      .vision-image img:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+      }
+
+      /* VSec Header Section */
+      .vsec {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(90deg, #333 50%, #000 50%);
+        padding: 20px;
+        color: #fff;
+        text-align: center;
+        height: 100px;
+        width: 100%;
+        position: relative;
+      }
+
+      .vsec h3 {
+        font-size: 3rem;
+        font-family: "Creattion Demo", sans-serif;
+        color: #fff;
+        letter-spacing: 2px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .vision {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .vision-content,
+        .vision-image {
+          flex: 1 1 100%;
+        }
+
+        .vision-image img {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+
+      /* Specifications Section */
+      .specs-container {
+        padding: 50px;
+        text-align: center;
+        background-image: url("S:\\VA\\pics\\Screenshot (752).png"); /* Add the image URL here */
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        color: rgba(
+          0,
+          0,
+          0,
+          0.226
+        ); /* Ensure the text is visible on the dark background */
+      }
+
+      .specs-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(
+          0,
+          0,
+          0,
+          0
+        ); /* Dark overlay to ensure text visibility */
+        z-index: 0;
+      }
+
+      .specs-container h2 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        font-size: 7rem;
+        font-family: "Creattion Demo", sans-serif;
+        margin-bottom: 20px;
+        color: #000000;
+        z-index: 1; /* Ensure it sits above the overlay */
+      }
+
+      .specs {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        z-index: 1; /* Ensure it sits above the overlay */
+      }
+
+      .spec-item {
+        background-color: #fff;
+        padding: 20px;
+        width: 250px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+        position: relative;
+        z-index: 1; /* Ensure the spec items are above the background overlay */
+      }
+
+      .spec-item h3 {
+        font-size: 1.5rem;
+        color: #000000;
+        margin-bottom: 10px;
+        font-family: "Roboto", sans-serif;
+        font-weight: bolder;
+      }
+
+      .spec-item p {
+        font-size: 1.2rem;
+        color: #333;
+        font-family: "Roboto", sans-serif;
+        font-weight: bolder;
+      }
+
+      /* Hover Effects */
+      .spec-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        background-color: #f0f0f0;
+      }
+
+      .spec-item:hover h3 {
+        color: #ffffff;
+      }
+
+      .spec-item:hover p {
+        color: #ddd;
+      }
+
+      .spec-item:hover {
+        background-color: #000000;
+      }
+
+      .spec-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .spec-item:hover::after {
+        opacity: 1;
+      }
+
+      /* Gallery Section */
+      .gallery-container {
+        padding: 50px 20px;
+        text-align: center;
+        background-color: #f8f8f8;
+        position: relative;
+      }
+
+      .gallery-container h2 {
+        font-size: 7rem;
+        margin-bottom: 20px;
+        font-family: "Creattion Demo", sans-serif;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+      }
+
+      /* Slider Wrapper */
+      .gallery-slider {
+        display: flex;
+        overflow: hidden;
+        width: 80%;
+        margin: 0 auto;
+        position: relative;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .gallery-slide {
+        min-width: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .gallery-slide img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 15px;
+      }
+
+      /* Controls */
+      .gallery-controls {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin: 20px auto 0;
+        position: relative;
+      }
+
+      .gallery-controls button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .gallery-controls button:hover {
+        background-color: #555;
+      }
+
+      /* General Team Section */
+      .team-container {
+        padding: 100px 20px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+      }
+
+      .team-container h2 {
+        font-size: 7rem;
+        font-family: "Creattion Demo", sans-serif;
+        color: #fff;
+        margin-bottom: 50px;
+      }
+
+      /* Team Wrapper */
+      .team-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      /* Member Card */
+      .member {
+        width: 280px;
+        position: relative;
+      }
+
+      .member-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        background: #111;
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+      }
+
+      /* Image Container */
+      .image-container {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+      }
+
+      .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .member-card:hover .image-container img {
+        transform: scale(1.1);
+      }
+
+      /* Info Section */
+      .info {
+        padding: 20px;
+        text-align: center;
+        z-index: 2;
+        position: relative;
+      }
+
+      .info h4 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .info p {
+        font-size: 1rem;
+        color: #aaa;
+      }
+
+      /* Overlay */
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(0, 0, 0, 0.6)
+        );
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .member-card:hover .overlay {
+        opacity: 1;
+      }
+
+      /* Footer Section */
+      footer {
+        background-color: rgb(109, 109, 109);
+        color: #222;
+        padding: 30px 20px;
+        text-align: center;
+        font-family: "Arial", sans-serif;
+        border-top: 1px solid rgb(0, 0, 0); /* Subtle top border */
+      }
+
+      /* Footer Container */
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      /* Footer Text */
+      .footer-text {
+        font-size: 1rem;
+        color: rgb(255, 255, 255);
+        letter-spacing: 1px;
+        margin: 0;
+        opacity: 0.8;
+      }
+
+      /* Social Links */
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        font-size: 1.5rem;
+        color: #444;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: #000;
+      }
+
+      /* Add light transition for hover effect */
+      .social-links a:hover {
+        transform: scale(1.1);
+        color: #333;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .hero h1 {
+          font-size: 4rem;
+        }
+        .vision-content p,
+        .vision h3 {
+          font-size: 1rem;
+        }
+        .spec-item {
+          width: 90%;
+          margin: 10px auto;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header h1 {
+          font-size: 1.5rem;
+        }
+        nav a {
+          font-size: 1.2rem;
+        }
+        .vision-content p {
+          font-size: 0.9rem;
+        }
+        .spec-item {
+          width: 100%;
+        }
+        .specs-container h2 {
+          font-size: 5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Full Page Section (Intro with Video) -->
+    <div class="full-page" id="full-page">
+      <!-- Background Video -->
+      <div class="background-video">
+        <video autoplay loop muted>
+          <source src="S:\\VA\\trailer\\new.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <header>
+        <h1>Vanagiri</h1>
+        <nav>
+          <a href="#full-page">Home</a>
+          <a href="#hero">Vision</a>
+        </nav>
+      </header>
+    </div>
+
+    <!-- Hero Section -->
+    <div id="hero" class="hero">
+      <h1>The GT</h1>
+      <p>Unleash the Beast</p>
+    </div>
+
+    <!-- Vision Section -->
+    <div id="vsec" class="vsec">
+      <h3>Our Vision</h3>
+    </div>
+    <div id="vision" class="vision">
+      <div class="vision-content">
+        <p>
+          We are creating a brand that combines performance, design, and
+          craftsmanship—all proudly "Made in India." Our mission is to fill the
+          gap, defy expectations, and craft a legacy that propels India’s
+          automotive future forward.
+        </p>
+        <p class="author">- Vanagiri Automotive</p>
+      </div>
+      <div class="vision-image">
+        <img
+          id="imgvision"
+          src="S:\\VA\\pics\\realistic\\wallpaper 3.25.jpg"
+          alt="Performance"
+        />
+      </div>
+    </div>
+
+    <!-- Specifications Section -->
+    <div id="specs" class="specs-container">
+      <h2>Specifications</h2>
+      <div class="specs">
+        <div class="spec-item">
+          <h3>Engine Type</h3>
+          <p>3L V6 Hybrid</p>
+        </div>
+        <div class="spec-item">
+          <h3>0-60 MPH</h3>
+          <p>> 7 sec</p>
+        </div>
+        <div class="spec-item">
+          <h3>Power</h3>
+          <p>450 - 500 HP</p>
+        </div>
+        <div class="spec-item">
+          <h3>Top Speed</h3>
+          <p>200 MPH</p>
+        </div>
+        <div class="spec-item">
+          <h3>Drivetrain</h3>
+          <p>Rear wheel Drive(RWD)</p>
+        </div>
+        <div class="spec-item">
+          <h3>Battery Range</h3>
+          <p>100 Miles(Mlectric Mode)</p>
+        </div>
+        <div class="spec-item">
+          <h3>Suspension</h3>
+          <p>Adaptive Suspension System</p>
+        </div>
+        <div class="spec-item">
+          <h3>Wheels</h3>
+          <p>20"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="gallery-container">
+      <h2>Preview</h2>
+      <div class="gallery-slider">
+        <div class="gallery-slide">
+          <img
+            src="S:\\VA\\pics\\realistic\\GTe shot.57.jpg"
+            alt="Gallery Image 2"
+          />
+        </div>
+        <div class="gallery-slide">
+          <img
+            src="S:\\VA\\pics\\realistic\\GTe shot.54.jpg"
+            alt="Gallery Image 3"
+          />
+        </div>
+        <div class="gallery-slide">
+          <img
+            src="S:\\VA\\pics\\realistic\\GTe Concept.23.jpg"
+            alt="Gallery Image 4"
+          />
+        </div>
+        <div class="gallery-slide">
+          <img src="S:\\VA\\pics\\realistic\\shortlist\\redn.4.jpg" />
+        </div>
+        <div class="gallery-slide">
+          <img
+            src="S:\\VA\\pics\\realistic\\wallpaper 3.25.jpg"
+            alt="Gallery Image 4"
+          />
+        </div>
+      </div>
+      <div class="gallery-controls">
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+      </div>
+    </div>
+
+    <div class="team-container">
+      <h2>Team</h2>
+      <div class="team-wrapper">
+        <div class="member">
+          <div class="member-card">
+            <div class="image-container">
+              <img src="S:\\VA\\Team\\DSCN01231.jpg" alt="Sai Maha Teja VR" />
+            </div>
+            <div class="info">
+              <h4>Sai Maha Teja VR</h4>
+              <p>Founder & CEO</p>
+            </div>
+            <div class="overlay"></div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-card">
+            <div class="image-container">
+              <img src="S:\\VA\\Team\\1605675479894.jpg" alt="Emily Johnson" />
+            </div>
+            <div class="info">
+              <h4>Jared B Falls</h4>
+              <p>CTO</p>
+            </div>
+            <div class="overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-container">
+        <p class="footer-text">
+          &copy; 2024 Vanagiri Automotive. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="va.js"></script>
+  </body>
+</html>
